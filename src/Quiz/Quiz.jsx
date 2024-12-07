@@ -1,32 +1,20 @@
-import { useState } from "react";
+import { createContext, useContext, useState } from "react";
 import GetQuizForm from "./GetQuizForm";
 import QuizItem from "./QuizItem";
-
+import QuizResults from "./QuizResults";
+import { QuizContext } from "./QuizContext.jsx";
 const Quiz = () => {
-  const [quizData, setQuizData] = useState([]);
-  const [isQuizStarted, setIsQuizStarted] = useState(false);
+  const { isQuizStarted, isQuizCompleted, quizData } = useContext(QuizContext);
 
   console.log(isQuizStarted);
 
-  const fetchQuiz = async (amount, category, difficulty) => {
-    try {
-      const response = await fetch(
-        `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}`
-      );
-
-      const data = await response.json();
-      console.log("Quiz data: ", data);
-      setQuizData(data.results);
-      setIsQuizStarted(true);
-    } catch (error) {
-      console.error("Error fetching quiz data: ", error);
-    }
-  };
-
   return (
     <>
-      {!isQuizStarted && <GetQuizForm onFetchQuiz={fetchQuiz} />}
-      {isQuizStarted && <QuizItem quizData={quizData} />}
+      {!isQuizStarted && !isQuizCompleted && <GetQuizForm />}
+      {isQuizStarted && <QuizItem />}
+
+      {/* Wanna add a modal for the results maybe? */}
+      {isQuizCompleted && <QuizResults />}
     </>
   );
 };

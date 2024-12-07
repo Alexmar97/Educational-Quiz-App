@@ -1,33 +1,40 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./QuizItem.module.css";
+import { QuizContext } from "./QuizContext";
+import QuizResults from "./QuizResults";
+import { decodeHtmlEntities } from "../Util/utils";
+import Card from "../UI/Card";
 
-const QuizItem = (props) => {
+const QuizItem = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
-  const currentQuestion = props.quizData[questionIndex];
+
   const [combinedOptions, setCombinedOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
   const [correctOption, setCorrectOption] = useState(null);
+  const [userAnswered, setUserAnswered] = useState(false);
+
+  const { quizData, setIsQuizStarted, isQuizCompleted, setIsQuizCompleted } =
+    useContext(QuizContext);
+  const currentQuestion = quizData[questionIndex];
 
   //To store the questions and answers for review by the user:
   // const userQuizItem = {quizQuestions: [...props.quizData.question]};
-  const [userQuizItem, setUserQuizItem] = useState([]);
+  // const [userQuizItem, setUserQuizItem] = useState({
+  //   score: 0,
+  //   quizArray: [],
+  // });
+
+  const { userQuizItem, setUserQuizItem } = useContext(QuizContext);
 
   //userQuizItem object will store the entire quiz we got from API with correct and incorrect answers
   //needs to also have the user's selections they made during the quiz
   //Maybe also final score?
 
   //To use when user reaches end of quiz:
-  const [quizCompleted, setQuizCompleted] = useState(null);
-
-  function decodeHtmlEntities(text) {
-    const parser = new DOMParser();
-    const decodedString = parser.parseFromString(text, "text/html")
-      .documentElement.textContent;
-    return decodedString;
-  }
+  // const [quizCompleted, setQuizCompleted] = useState(null);
 
   const nextButtonHandler = () => {
-    if (questionIndex >= props.quizData.length - 1) {
+    if (questionIndex >= quizData.length - 1) {
       // Show results or disable the "Next" button
 
       return;
@@ -35,10 +42,13 @@ const QuizItem = (props) => {
     setQuestionIndex((prevQuestionIndex) => {
       return prevQuestionIndex + 1;
     });
-    console.log(props.quizData[questionIndex]);
+    console.log(quizData[questionIndex]);
 
     setSelectedOption(null);
     setCorrectOption(null);
+    setUserAnswered(false);
+
+    console.log("Current score is: " + userQuizItem.score);
   };
 
   const previousButtonHandler = () => {
@@ -62,17 +72,31 @@ const QuizItem = (props) => {
 
   const anserCheck = () => {
     setCorrectOption(currentQuestion.correct_answer); // Set the correct answer
+    setUserAnswered(true);
 
-    setUserQuizItem((prevState) => [
+    const isCorrect = selectedOption === currentQuestion.correct_answer;
+
+    console.log("isCorrect variable value: " + isCorrect);
+
+    setUserQuizItem((prevState) => ({
       ...prevState,
-      {
-        question: currentQuestion.question,
-        options: combinedOptions,
-        userChose: selectedOption,
-      },
-    ]);
+      score: isCorrect ? prevState.score + 1 : prevState.score,
+      quizArray: [
+        ...prevState.quizArray,
+        {
+          question: currentQuestion.question,
+          options: combinedOptions,
+          userChose: selectedOption,
+        },
+      ],
+    }));
 
-    if (questionIndex == props.quizData.length - 1) setQuizCompleted(true);
+    console.log("userQuizItem variable value: " + userQuizItem.score);
+
+    if (questionIndex == quizData.length - 1) {
+      setIsQuizCompleted(true);
+      setIsQuizStarted(false);
+    }
   };
 
   const getButtonClassName = (option) => {
@@ -96,50 +120,42 @@ const QuizItem = (props) => {
 
   return (
     <>
-      <div>
-        <p>TEST FROM QUIZ ITEM</p>
-        <h3>{decodeHtmlEntities(currentQuestion.question)}</h3>
-        {combinedOptions.map((option) => (
-          <div key={option}>
-            <button
-              value={option}
-              onClick={() => setSelectedOption(option)}
-              className={getButtonClassName(option)}
-            >
-              {decodeHtmlEntities(option)}
+      <Card>
+        <div>
+          <h3>{decodeHtmlEntities(currentQuestion.question)}</h3>
+          {combinedOptions.map((option) => (
+            <div key={option}>
+              <button
+                value={option}
+                onClick={() => setSelectedOption(option)}
+                className={getButtonClassName(option)}
+              >
+                {decodeHtmlEntities(option)}
+              </button>
+            </div>
+          ))}
+          {questionIndex > 0 && (
+            <button onClick={previousButtonHandler}>Previous</button>
+          )}
+          {selectedOption != null && (
+            <button onClick={anserCheck}>Check Answer</button>
+          )}
+          {questionIndex < quizData.length - 1 && (
+            <button onClick={nextButtonHandler} disabled={!userAnswered}>
+              Next
             </button>
-          </div>
-        ))}
-        {questionIndex > 0 && (
-          <button onClick={previousButtonHandler}>Previous</button>
-        )}
-        {selectedOption != null && (
-          <button onClick={anserCheck}>Check Answer</button>
-        )}
-        {questionIndex < props.quizData.length - 1 && (
-          <button onClick={nextButtonHandler}>Next</button>
-        )}
-        {quizCompleted && (
-          <div>
-            {userQuizItem.map((item, index) => (
-              <div key={index}>
-                <h4>Question: {decodeHtmlEntities(item.question)}</h4>
-                <ul>
-                  {item.options.map((opt, idx) => (
-                    <li key={idx}>
-                      {decodeHtmlEntities(opt)} -
-                      {opt === item.userChose ? " (Your Choice)" : ""}
-                      {opt === currentQuestion.correct_answer
-                        ? " (Correct)"
-                        : ""}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+          )}
+          {userQuizItem.score != 0 && (
+            <span>
+              <p>
+                Score: {userQuizItem.score} / {quizData.length}
+              </p>
+            </span>
+          )}
+          {/* the below block shows the completed quiz */}
+          {/* {isQuizCompleted && <QuizResults />} */}
+        </div>
+      </Card>
     </>
   );
 };

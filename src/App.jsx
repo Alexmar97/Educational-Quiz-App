@@ -4,6 +4,7 @@ import "./App.css";
 import RootLayout from "./Navigation/RootLayout";
 import HomePage from "./HomePage";
 import Quiz from "./Quiz/Quiz";
+import { QuizProvider } from "./Quiz/QuizContext.jsx";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +12,14 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "quiz", element: <Quiz /> },
+      {
+        path: "quiz",
+        element: (
+          <QuizProvider>
+            <Quiz />
+          </QuizProvider>
+        ),
+      },
     ],
   },
 ]);
