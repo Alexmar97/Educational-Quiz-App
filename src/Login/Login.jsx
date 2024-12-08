@@ -14,7 +14,7 @@ const Login = () => {
       .then(async (userCredential) => {
         //Signed in
         const user = userCredential.user;
-        console.log("User: " + user);
+        console.log("User: " + user.email);
 
         const token = await user.getIdToken();
         const expirationTime = Date.now() + 3600 * 1000; //(this is 1hr)

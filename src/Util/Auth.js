@@ -23,6 +23,6 @@ export function getToken() {
 
 export function isAuthenticated() {
   const token = getToken();
-  console.log("Token in isAuthenticated:", token); // Debugging log
+  // console.log("Token in isAuthenticated:", token); // Debugging log
   return token && token !== "EXPIRED";
 }

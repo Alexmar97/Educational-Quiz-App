@@ -18,13 +18,6 @@ const QuizItem = () => {
     useContext(QuizContext);
   const currentQuestion = quizData[questionIndex];
 
-  //To store the questions and answers for review by the user:
-  // const userQuizItem = {quizQuestions: [...props.quizData.question]};
-  // const [userQuizItem, setUserQuizItem] = useState({
-  //   score: 0,
-  //   quizArray: [],
-  // });
-
   const { userQuizItem, setUserQuizItem } = useContext(QuizContext);
 
   //userQuizItem object will store the entire quiz we got from API with correct and incorrect answers

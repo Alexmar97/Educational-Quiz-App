@@ -19,7 +19,8 @@
 
 .nav a {
   text-decoration: none;
-  color: #333;
+  /* color: white; */
+  color: #646cff;
 }
 
 .nav a:hover,
