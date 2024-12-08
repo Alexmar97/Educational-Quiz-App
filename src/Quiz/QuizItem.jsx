@@ -4,6 +4,7 @@ import { QuizContext } from "./QuizContext";
 import QuizResults from "./QuizResults";
 import { decodeHtmlEntities } from "../Util/utils";
 import Card from "../UI/Card";
+import ProgressBar from "../ProgressBar";
 
 const QuizItem = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -157,8 +158,12 @@ const QuizItem = () => {
           {/* {isQuizCompleted && <QuizResults />} */}
         </div>
       </Card>
+      <ProgressBar progress={questionIndex} quizLength={quizData.length} />
+      <p>TEST</p>
     </>
   );
 };
 
 export default QuizItem;
+
+//progressMade = props.quizLength / props.progress
