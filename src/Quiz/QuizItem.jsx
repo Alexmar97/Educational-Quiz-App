@@ -87,6 +87,7 @@ const QuizItem = () => {
           question: currentQuestion.question,
           options: combinedOptions,
           userChose: selectedOption,
+          correct_answer: currentQuestion.correct_answer,
         },
       ],
     }));
