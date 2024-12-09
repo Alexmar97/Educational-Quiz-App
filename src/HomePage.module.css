@@ -1,0 +1,50 @@
+.quizTilesContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.quizTile {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+}
+
+.quizTile:hover {
+  transform: translateY(-5px);
+}
+
+.quizImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.quizContent {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.quizTitle {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.startButton {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.startButton:hover {
+  background: #45a049;
+}

@@ -1,15 +1,68 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { QuizContext } from "./QuizContext";
 import { decodeHtmlEntities } from "../Util/utils";
 import styles from "./QuizResults.module.css";
 import Card from "../UI/Card";
+import { getDatabase, ref, get, set, update } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
 const QuizResults = () => {
-  const { userQuizItem } = useContext(QuizContext);
+  const { userQuizItem, startedLeaderBoardQuiz, completedLeaderBoardQuiz } =
+    useContext(QuizContext);
 
   const auth = getAuth();
   const user = auth.currentUser;
+
+  const submitResultToLeaderBoard = async (score) => {
+    //If this is not a leaderboard quiz, then return (not needed to submit to leaderboard)
+    if (!startedLeaderBoardQuiz || !completedLeaderBoardQuiz) {
+      return;
+    }
+    //If started but not completed the quiz:
+    else if (startedLeaderBoardQuiz && !completedLeaderBoardQuiz) {
+      console.log("Leaderboard quiz started and completed");
+    }
+
+    //if started and completed the leaderboard quiz:
+    else {
+      const db = getDatabase();
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      if (!user) {
+        console.error("User not authenticated");
+        return;
+      }
+
+      const userID = user.uid;
+      const timeStamp = new Date().toISOString();
+
+      //reference the leaderboard?:
+      const leaderboardRef = ref(db, `leaderBoard/${userID}`);
+
+      //Check if user exists in the leaderboard already:
+      const snapshot = await get(leaderboardRef);
+      const existingData = snapshot.val();
+
+      //If there's no data in it or the new score is higher, then update:
+      if (!existingData || score > existingData.maxScore) {
+        await set(leaderboardRef, {
+          maxScore: score,
+          timeStamp: timeStamp,
+        });
+      }
+    }
+
+    // const response = await fetch(
+    //   "https://eduquiz-89c97-default-rtdb.firebaseio.com/leaderboard",
+    //   { method: "POST", body: JSON.stringify(userQuizItem) }
+    // );
+  };
+
+  // Should be
+  useEffect(() => {
+    submitResultToLeaderBoard(userQuizItem.score);
+  }, [userQuizItem.score]);
 
   const getButtonClassName = (item) => {
     // setSelectedOption(option);
@@ -22,16 +75,6 @@ const QuizResults = () => {
       return styles.incorrect; // Highlight incorrect selection after checking
     }
 
-    // if (item.userChose === item.correct_answer) {
-    //   return styles.selected; // Highlight the selected option before checking
-    // }
-    // if (
-    //   item.correct_answer &&
-    //   item.userChose === opt &&
-    //   opt !== item.correct_answer
-    // ) {
-    //   return styles.incorrect; // Highlight incorrect selection after checking
-    // }
     return ""; // Default styling
   };
 

@@ -5,6 +5,9 @@ import QuizResults from "./QuizResults";
 import { decodeHtmlEntities } from "../Util/utils";
 import Card from "../UI/Card";
 import ProgressBar from "../ProgressBar";
+import { getDatabase, ref, get, set, update } from "firebase/database";
+import { getAuth } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const QuizItem = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -20,12 +23,7 @@ const QuizItem = () => {
 
   const { userQuizItem, setUserQuizItem } = useContext(QuizContext);
 
-  //userQuizItem object will store the entire quiz we got from API with correct and incorrect answers
-  //needs to also have the user's selections they made during the quiz
-  //Maybe also final score?
-
-  //To use when user reaches end of quiz:
-  // const [quizCompleted, setQuizCompleted] = useState(null);
+  const navigate = useNavigate();
 
   const nextButtonHandler = () => {
     if (questionIndex >= quizData.length - 1) {
@@ -91,6 +89,10 @@ const QuizItem = () => {
     if (questionIndex == quizData.length - 1) {
       setIsQuizCompleted(true);
       setIsQuizStarted(false);
+
+      //Only for leaderboard quizzes:
+      setCompletedLeaderBoardQuiz(true);
+      setStartedLeaderBoardQuiz(false);
     }
   };
 
@@ -113,6 +115,48 @@ const QuizItem = () => {
     return ""; // Default styling
   };
 
+  const resetQuiz = () => {
+    setIsQuizCompleted(false);
+    setIsQuizStarted(false);
+    setQuestionIndex(0);
+    setUserQuizItem({ score: 0, quizArray: [] });
+    navigate("/");
+  };
+
+  const submitResultToLeaderBoard = async (score) => {
+    const db = getDatabase();
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      console.error("User not authenticated");
+      return;
+    }
+
+    const userID = user.uid;
+    const timeStamp = new Date().toISOString();
+
+    //reference the leaderboard?:
+    const leaderboardRef = ref(db, `leaderBoard/${userID}`);
+
+    //Check if user exists in the leaderboard already:
+    const snapshot = await get(leaderboardRef);
+    const existingData = snapshot.val();
+
+    //If there's no data in it or the new score is higher, then update:
+    if (!existingData || score > existingData.maxScore) {
+      await set(leaderboardRef, {
+        maxScore: score,
+        timeStamp: timeStamp,
+      });
+    }
+
+    // const response = await fetch(
+    //   "https://eduquiz-89c97-default-rtdb.firebaseio.com/leaderboard",
+    //   { method: "POST", body: JSON.stringify(userQuizItem) }
+    // );
+  };
+
   return (
     <>
       <Card>
@@ -129,9 +173,7 @@ const QuizItem = () => {
               </button>
             </div>
           ))}
-          {questionIndex > 0 && (
-            <button onClick={previousButtonHandler}>Previous</button>
-          )}
+          <button onClick={resetQuiz}>Reset Quiz</button>
           {selectedOption != null && (
             <button onClick={anserCheck}>Check Answer</button>
           )}
@@ -152,7 +194,9 @@ const QuizItem = () => {
         </div>
       </Card>
       <ProgressBar progress={questionIndex} quizLength={quizData.length} />
-      <p>TEST</p>
+      <p>
+        Progress: {questionIndex} / {quizData.length}
+      </p>
     </>
   );
 };

@@ -1,8 +1,15 @@
 import { useContext } from "react";
 import { QuizContext } from "./QuizContext.jsx";
+import { isAuthenticated } from "../Util/Auth";
 
 const GetQuizForm = (props) => {
-  const { setQuizData, setIsQuizStarted } = useContext(QuizContext);
+  const {
+    setQuizData,
+    setIsQuizStarted,
+    setCompletedLeaderBoardQuiz,
+    completedLeaderBoardQuiz,
+    setStartedLeaderBoardQuiz,
+  } = useContext(QuizContext);
 
   const submitFormHandler = async (event) => {
     event.preventDefault();
@@ -31,6 +38,23 @@ const GetQuizForm = (props) => {
     //props.onFetchQuiz(amount, category, difficulty);
   };
 
+  const getLeaderBoardQuiz = async () => {
+    setStartedLeaderBoardQuiz(true);
+
+    try {
+      const response = await fetch(
+        `https://opentdb.com/api.php?amount=15&category=9&difficulty=hard `
+      );
+
+      const data = await response.json();
+      console.log("Leaderboard quiz data: ", data);
+      setQuizData(data.results);
+      setIsQuizStarted(true);
+    } catch (error) {
+      console.error("Error fetching leaderboard quiz data: ", error);
+    }
+  };
+
   return (
     <>
       <form onSubmit={submitFormHandler}>
@@ -57,6 +81,12 @@ const GetQuizForm = (props) => {
         <input name="amount" type="number" min="1" max="50"></input>
         <button type="submit">Get Quiz</button>
       </form>
+
+      {!completedLeaderBoardQuiz && isAuthenticated() && (
+        <button onClick={getLeaderBoardQuiz}>
+          Get Weekly Leaderboard Quiz
+        </button>
+      )}
     </>
   );
 };
