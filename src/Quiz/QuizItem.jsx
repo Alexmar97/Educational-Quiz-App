@@ -43,12 +43,6 @@ const QuizItem = () => {
     console.log("Current score is: " + userQuizItem.score);
   };
 
-  const previousButtonHandler = () => {
-    setQuestionIndex((prevQuestionIndex) => {
-      return prevQuestionIndex - 1;
-    });
-  };
-
   useEffect(() => {
     const shuffledOptions = shuffleArray([
       ...currentQuestion.incorrect_answers,
@@ -150,11 +144,6 @@ const QuizItem = () => {
         timeStamp: timeStamp,
       });
     }
-
-    // const response = await fetch(
-    //   "https://eduquiz-89c97-default-rtdb.firebaseio.com/leaderboard",
-    //   { method: "POST", body: JSON.stringify(userQuizItem) }
-    // );
   };
 
   return (
@@ -189,8 +178,6 @@ const QuizItem = () => {
               </p>
             </span>
           )}
-          {/* the below block shows the completed quiz */}
-          {/* {isQuizCompleted && <QuizResults />} */}
         </div>
       </Card>
       <ProgressBar progress={questionIndex} quizLength={quizData.length} />

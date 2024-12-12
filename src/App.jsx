@@ -8,11 +8,14 @@ import Login from "./Login/Login";
 import SignUp from "./Login/SignUp";
 import { QuizProvider } from "./Quiz/QuizContext.jsx";
 import { action as logoutAction } from "./Login/Logout.jsx";
+import ErrorPage from "./Error.jsx";
+import Leaderboard from "./LeaderBoards/Leaderboard.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -36,6 +39,7 @@ const router = createBrowserRouter([
         path: "logout",
         action: logoutAction,
       },
+      { path: "leaderboard", element: <Leaderboard /> },
     ],
   },
 ]);

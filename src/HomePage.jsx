@@ -85,9 +85,10 @@ const HomePage = () => {
   };
 
   return (
-    <>
-      <div>
-        <h1>Welcome Home</h1>
+    <div>
+      <h1 className={styles.pageTitle}>Welcome to EduQuiz</h1>
+
+      <div className={styles.infoSection}>
         <div>
           <h2>What is EduQuiz?</h2>
           <p>
@@ -115,35 +116,36 @@ const HomePage = () => {
             quiz.
           </p>
         </div>
-        <h2>Popular Quizzes</h2>
-        <div className={styles.quizTilesContainer}>
-          {popularQuizzes.map((quiz) => (
-            <div key={quiz.id} className={styles.quizTile}>
-              <img
-                src={quiz.image}
-                alt={quiz.title}
-                className={styles.quizImage}
-              />
-              <div className={styles.quizContent}>
-                <h3 className={styles.quizTitle}>{quiz.title}</h3>
-                <button
-                  className={styles.startButton}
-                  onClick={() => {
-                    getQuiz(
-                      quiz.category,
-                      quiz.difficulty,
-                      quiz.numberOfQuestions
-                    );
-                  }}
-                >
-                  Start Quiz
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
-    </>
+
+      <h2 className={styles.sectionTitle}>Popular Quizzes</h2>
+      <div className={styles.quizTilesContainer}>
+        {popularQuizzes.map((quiz) => (
+          <div key={quiz.id} className={styles.quizTile}>
+            <img
+              src={quiz.image}
+              alt={quiz.title}
+              className={styles.quizImage}
+            />
+            <div className={styles.quizContent}>
+              <h3 className={styles.quizTitle}>{quiz.title}</h3>
+              <button
+                className={styles.startButton}
+                onClick={() => {
+                  getQuiz(
+                    quiz.category,
+                    quiz.difficulty,
+                    quiz.numberOfQuestions
+                  );
+                }}
+              >
+                Start Quiz
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 
