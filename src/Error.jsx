@@ -2,7 +2,6 @@ import { useRouteError } from "react-router-dom";
 import MainNavigation from "./Navigation/MainNavigation";
 import React from "react";
 import { DotLottiePlayer } from "@dotlottie/react-player";
-import four04 from "./Animations/404Animation.json";
 import styles from "./Error.module.css";
 
 const ErrorPage = () => {
@@ -25,7 +24,7 @@ const ErrorPage = () => {
       <MainNavigation />
       <div className={styles.animationContainer}>
         <DotLottiePlayer
-          src={four04}
+          src="/404Animation.json"
           autoplay
           loop
           style={{ height: "300px", width: "300px" }}
