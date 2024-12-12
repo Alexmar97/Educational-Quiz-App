@@ -19,9 +19,9 @@ const popularQuizzes = [
   },
   {
     id: 2,
-    title: "History Quiz",
-    image: "https://images.unsplash.com/photo-1461360370896-922624d12aa1?w=500",
-    category: 23,
+    title: "Television Quiz",
+    image: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=500",
+    category: 14,
     difficulty: "easy",
     numberOfQuestions: 10,
   },
@@ -35,9 +35,9 @@ const popularQuizzes = [
   },
   {
     id: 4,
-    title: "Math Quiz",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500",
-    category: 19,
+    title: "Sports Quiz",
+    image: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=500", // Sports equipment collection
+    category: 21,
     difficulty: "easy",
     numberOfQuestions: 10,
   },

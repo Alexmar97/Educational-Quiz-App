@@ -1,0 +1,42 @@
+Development Process:
+
+My development process began by brainstorming a challenging yet practical project that incorporated key concepts we covered in class while allowing me to expand in certain areas too. I aimed to create an app that would be fun to develop and offer real-world utility.
+To stay organized, I created a Trello board to map out the functionality of my app, divide it up into the components I thought would be necessary for its functionality, and created a checklist for each of those components for the things I would need to get them to work and integrated with the rest. This planning phase was crucial, as it allowed me to set clear goals and track progress effectively throughout development.
+
+----------------------------------
+
+Challenges:
+
+The biggest challenges I faced revolved around styling of the overall app and the Firebase integration. Implementing the leaderboard system was particularly complex. I had to design an efficient database schema, query top scores dynamically, and render them visually using graphs. Ensuring that the leaderboard updated correctly and displayed user-friendly information required significant debugging and iteration.
+
+- Lessons Learned:
+Importance of Planning and Leveraging Organizational Tools: I believe this is the first project for this class for which I’ve used Trello, and I found this to be incredibly helpful for mapping out each part of my app and track my progress and hurdles that could be preventing my progress, which became really handy when managing a large project like this. Also, proper planning of the context API for state management and Firebase database schema helped streamline the development process.
+
+- Working with Third-Party Tools:
+Integrating Recharts and LottieFiles taught me the importance of understanding documentation and experimenting with configurations. I’m especially proud of successfully implementing Lottie animations, as this was something I struggled to implement in a previous project.
+
+-  A Debugging Mindset:
+Breaking down problems into smaller parts, testing each component independently, and using online resources proved to be highly effective for overcoming challenges.
+
+- Enhancing User Experience:
+I learned how even small details, like animations and data visualization, can make a big difference in the overall user experience.
+
+----------------------------------
+
+- Future Improvements / Features:
+
+- Enhanced Leaderboard Features:
+Introduce weekly leaderboard snapshots and an archive for historical data.
+Display user-friendly names instead of IDs and allow profile customization.
+
+- Profile Set Up and Friends:
+I was unable to finish setting up a proper Profile functionality to allow users to select unique usernames and add friends. This is a key enhancement I look forward to implementing, as it would significantly improve the gamification aspect of my app and improve the Leaderboard experience as well.
+
+- Gamification:
+Add badges, achievements, or streaks to encourage users to engage with the app regularly.
+
+----------------------------------
+
+
+- Reflection:
+This project has been a rewarding journey, combining classroom concepts with practical implementation. It challenged me to think critically, solve problems creatively, and explore tools and libraries that I hadn’t used before. I’ve gained a deeper appreciation for the importance of planning, organization, and user experience, and I look forward to building on this foundation with future projects.
