@@ -19,8 +19,16 @@ import {
   Customized,
 } from "recharts";
 import { useState, useEffect } from "react";
+import styles from "./Leaderboard.module.css";
 
 // const app = initializeApp(firebaseConfig);
+
+const CHART_COLORS = {
+  gold: "#FFD700", // Gold for 1st place
+  silver: "#FF8C00", // Orange for 2nd place
+  bronze: "#FFA07A", // Light salmon for 3rd place
+  gridLines: "#f0f0f0", // Light grey for grid
+};
 
 const Leaderboard = () => {
   const db = getDatabase();
@@ -75,33 +83,80 @@ const Leaderboard = () => {
   };
 
   return (
-    <div>
-      <h2>Top 3 Leaderboard</h2>
-      {leaderBoardData.length > 0 ? (
-        <BarChart
-          width={500}
-          height={300}
-          data={leaderBoardData}
-          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="score" fill="#8884d8" animationDuration={1500}>
-            {leaderBoardData.map((entry, index) => (
-              <Cell
-                key={entry.name}
-                fill={index === 0 ? "#FFD700" : "#8884d8"}
-              />
-            ))}
-          </Bar>
-          <Customized component={(props) => renderCrown({ ...props })} />
-        </BarChart>
-      ) : (
-        <p>Loading Leaderboard...</p>
-      )}
+    <div className={styles.container}>
+      {/* Left Column */}
+      <div className={`${styles.column} ${styles.leftColumn}`}>
+        <h3 className={styles.title}>Keep Practicing!</h3>
+        <p className={styles.subtitle}>
+          Challenge yourself to reach the top of the leaderboard! 🚀
+        </p>
+        <p>Regular practice will help you:</p>
+        <ul className={styles.list}>
+          <li className={styles.listItem}>🎯 Improve your quiz scores</li>
+          <li className={styles.listItem}>📚 Master new concepts</li>
+          <li className={styles.listItem}>🏆 Compete with other learners</li>
+        </ul>
+      </div>
+
+      {/* Middle Column - Chart */}
+      <div className={`${styles.column} ${styles.middleColumn}`}>
+        <h2 className={styles.title}>Top 3 Leaderboard</h2>
+        {leaderBoardData.length > 0 ? (
+          <BarChart
+            width={500}
+            height={300}
+            data={leaderBoardData}
+            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          >
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke={CHART_COLORS.gridLines}
+            />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip
+              cursor={{ fill: "rgba(255, 140, 0, 0.1)" }} // Light orange hover effect
+            />
+            <Legend />
+            <Bar dataKey="score" animationDuration={1500}>
+              {leaderBoardData.map((entry, index) => (
+                <Cell
+                  key={entry.name}
+                  fill={
+                    index === 0
+                      ? CHART_COLORS.gold
+                      : index === 1
+                      ? CHART_COLORS.silver
+                      : CHART_COLORS.bronze
+                  }
+                />
+              ))}
+            </Bar>
+            <Customized component={(props) => renderCrown({ ...props })} />
+          </BarChart>
+        ) : (
+          <p>Loading Leaderboard...</p>
+        )}
+      </div>
+
+      {/* Right Column */}
+      <div className={`${styles.column} ${styles.rightColumn}`}>
+        <h3 className={styles.title}>How it Works</h3>
+        <p className={styles.subtitle}>
+          The leaderboard shows the top 3 highest scores from all players.
+        </p>
+        <ul className={styles.list}>
+          <li className={styles.listItem}>
+            🥇 Gold bar represents the highest score
+          </li>
+          <li className={styles.listItem}>
+            👥 Scores are updated in real-time
+          </li>
+          <li className={styles.listItem}>
+            📈 Only your best score is displayed
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

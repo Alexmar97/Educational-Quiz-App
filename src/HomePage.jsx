@@ -31,10 +31,10 @@ const HomePage = () => {
   const popularQuizzes = [
     {
       id: 1,
-      title: "Science Quiz",
+      title: "Music Quiz",
       image:
-        "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=500",
-      category: "science",
+        "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500",
+      category: 12,
       difficulty: "easy",
       numberOfQuestions: 10,
     },
@@ -59,7 +59,7 @@ const HomePage = () => {
       id: 4,
       title: "Math Quiz",
       image:
-        "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500",
+        "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=500", // Mathematical formulas on a blackboard,
       category: 19,
       difficulty: "easy",
       numberOfQuestions: 10,
@@ -90,30 +90,31 @@ const HomePage = () => {
 
       <div className={styles.infoSection}>
         <div>
-          <h2>What is EduQuiz?</h2>
+          <h2>What is EduQuiz? </h2>
           <p>
             EduQuiz is a platform that allows you to take quizzes on a variety
             of topics. Test Your Knowledge Across a World of Topics! Ready to
-            Challenge Your Brain?
+            Challenge Your Brain? 🧠
           </p>
         </div>
 
         <div>
-          <h2>How to use EduQuiz</h2>
+          <h2>How to use EduQuiz ⚡</h2>
           <p>
             To get started, simply click the "Get Quiz" button. You can choose
-            the category, difficulty, and number of questions. Once you've
-            selected your preferences, click "Get Quiz" to start the quiz.
+            the category 📚, difficulty level, and number of questions. Once
+            you've selected your preferences, click "Get Quiz" to start the
+            quiz!
           </p>
         </div>
 
         <div>
-          <h2>What does EduQuiz offer?</h2>
+          <h2>What does EduQuiz offer? </h2>
           <p>
             EduQuiz offers a wide range of quizzes on a variety of topics. You
             can choose the category, difficulty, and number of questions. Once
-            you've selected your preferences, click "Get Quiz" to start the
-            quiz.
+            you've selected your preferences, click "Get Quiz" to start the quiz
+            and test your knowledge! 🚀
           </p>
         </div>
       </div>

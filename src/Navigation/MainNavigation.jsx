@@ -56,9 +56,12 @@ const MainNavigation = () => {
               Login
             </NavLink>
           ) : (
-            <Form action="/logout" method="post" className={styles.logoutForm}>
-              <button className={styles.logoutLink}>Logout</button>
-            </Form>
+            <NavLink
+              to="logout"
+              className={({ isActive }) => (isActive ? styles.active : "")}
+            >
+              Logout
+            </NavLink>
           )}
         </li>
       </ul>

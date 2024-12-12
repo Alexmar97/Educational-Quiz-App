@@ -16,3 +16,11 @@
 button {
   margin-top: 5px;
 }
+
+.bottomButtons {
+  background-color: #0d53f7;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}

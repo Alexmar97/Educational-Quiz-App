@@ -80,9 +80,7 @@ const QuizResults = () => {
 
   return (
     <>
-      {" "}
       <div>
-        <h1>TEST FROM QUIZ RESULTS</h1>
         {userQuizItem.quizArray.map((item, index) => (
           <div key={index}>
             <Card>
@@ -142,9 +140,9 @@ const QuizResults = () => {
       <h2>
         You scored {userQuizItem.score} out of {userQuizItem.quizArray.length}
       </h2>
-      <p>{user.email}</p>
+      {/* <p>{user.email}</p>
       <p>{user.uid}</p>
-      <p>TEST 2</p>
+      <p>TEST 2</p> */}
       {/* XATQRIGfekRbkdbfgayXp022TDl2 */}
     </>
   );

@@ -3,6 +3,9 @@
   top: 0;
   left: 0;
   padding: 1rem;
+  background-color: rgb(190, 220, 246);
+  width: 100%;
+  z-index: 100;
 }
 
 .nav ul {
@@ -21,12 +24,17 @@
   text-decoration: none;
   /* color: white; */
   color: #646cff;
+
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .nav a:hover,
 .nav a.active {
   color: #007bff;
   text-decoration: underline;
+  background-color: #6075fe;
+  color: white;
 }
 
 .logoutLink {

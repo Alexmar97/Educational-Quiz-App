@@ -6,15 +6,22 @@
 }
 
 .quizTile {
-  background: white;
-  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .quizTile:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 .quizImage {
@@ -24,18 +31,17 @@
 }
 
 .quizContent {
-  padding: 1.5rem;
+  padding: 15px;
   text-align: center;
 }
 
 .quizTitle {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-  color: #333;
+  color: #003366;
+  margin-bottom: 15px;
 }
 
 .startButton {
-  background: #4caf50;
+  background: #0d77f7;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -46,7 +52,7 @@
 }
 
 .startButton:hover {
-  background: #45a049;
+  background: #0021f7;
 }
 
 p {
@@ -55,42 +61,52 @@ p {
 
 .infoSection {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  padding: 2rem;
-  margin-bottom: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin: 20px;
 }
 
-.infoCard {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.infoSection > div {
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 20px;
 }
 
-.infoCard h2 {
-  color: #2c3e50;
-  margin-bottom: 1rem;
+.infoSection h2 {
+  color: #003366;
   font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
-.infoCard p {
-  color: #666;
-  line-height: 1.6;
+.infoSection p {
+  color: #003366;
+  font-size: 1.2rem;
+  line-height: 1.5;
 }
 
 .pageTitle {
-  text-align: center;
-  color: #2c3e50;
-  margin: 2rem 0;
+  color: #003366;
   font-size: 2.5rem;
+  font-weight: bold;
+  margin: 30px auto;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
 }
 
 .sectionTitle {
-  text-align: center;
-  color: #2c3e50;
-  margin: 2rem 0;
+  color: #003366;
   font-size: 2rem;
+  font-weight: bold;
+  margin: 30px auto;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
 }
 
 /* Make it responsive */

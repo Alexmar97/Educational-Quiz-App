@@ -7,9 +7,9 @@ import Quiz from "./Quiz/Quiz";
 import Login from "./Login/Login";
 import SignUp from "./Login/SignUp";
 import { QuizProvider } from "./Quiz/QuizContext.jsx";
-import { action as logoutAction } from "./Login/Logout.jsx";
-import ErrorPage from "./Error.jsx";
 import Leaderboard from "./LeaderBoards/Leaderboard.jsx";
+import ErrorPage from "./Error.jsx";
+import Logout from "./Login/Logout";
 
 const router = createBrowserRouter([
   {
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
       { path: "signup", element: <SignUp /> },
       {
         path: "logout",
-        action: logoutAction,
+        element: <Logout />,
       },
       { path: "leaderboard", element: <Leaderboard /> },
     ],

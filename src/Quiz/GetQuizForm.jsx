@@ -35,23 +35,6 @@ const GetQuizForm = (props) => {
     props.onCloseModal();
   };
 
-  // const getLeaderBoardQuiz = async () => {
-  //   setStartedLeaderBoardQuiz(true);
-
-  //   try {
-  //     const response = await fetch(
-  //       `https://opentdb.com/api.php?amount=15&category=9&difficulty=hard `
-  //     );
-
-  //     const data = await response.json();
-  //     console.log("Leaderboard quiz data: ", data);
-  //     setQuizData(data.results);
-  //     setIsQuizStarted(true);
-  //   } catch (error) {
-  //     console.error("Error fetching leaderboard quiz data: ", error);
-  //   }
-  // };
-
   return (
     <>
       <form onSubmit={submitFormHandler} className={styles.form}>

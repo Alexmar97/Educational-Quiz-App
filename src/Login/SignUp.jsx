@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
+import styles from "./SignUp.module.css";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -28,11 +29,13 @@ const SignUp = () => {
     <>
       <main>
         <section>
-          <div>
+          <div className={styles.container}>
             <h1>Create an Account</h1>
             <form onSubmit={onSubmit}>
               <div>
-                <label htmlFor="email-address">Email address</label>
+                <label htmlFor="email-address">
+                  <b>Email address:</b>
+                </label>
                 <input
                   type="email"
                   id="email-address"
@@ -45,7 +48,9 @@ const SignUp = () => {
               </div>
 
               <div>
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">
+                  <b>Password:</b>
+                </label>
                 <input
                   type="password"
                   id="password"
@@ -60,7 +65,7 @@ const SignUp = () => {
               <button type="submit">Sign up</button>
             </form>
 
-            <p>
+            <p className={styles.bottomText}>
               Already have an account? <NavLink to="/login">Sign in</NavLink>
             </p>
           </div>

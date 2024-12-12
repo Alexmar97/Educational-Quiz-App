@@ -11,9 +11,9 @@ import styles from "./Quiz.module.css";
 const popularQuizzes = [
   {
     id: 1,
-    title: "Science Quiz",
+    title: "Mythology Quiz",
     image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=500",
-    category: "science",
+    category: 20,
     difficulty: "easy",
     numberOfQuestions: 10,
   },
@@ -81,6 +81,21 @@ const Quiz = () => {
       setIsQuizStarted(true);
     } catch (error) {
       console.error("Error fetching leaderboard quiz data: ", error);
+    }
+  };
+
+  const getQuiz = async (category, difficulty, amount) => {
+    try {
+      const response = await fetch(
+        `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}`
+      );
+
+      const data = await response.json();
+      console.log("Quiz data: ", data);
+      setQuizData(data.results);
+      setIsQuizStarted(true);
+    } catch (error) {
+      console.error("Error fetching quiz data: ", error);
     }
   };
 

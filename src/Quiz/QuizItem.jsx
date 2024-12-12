@@ -162,12 +162,20 @@ const QuizItem = () => {
               </button>
             </div>
           ))}
-          <button onClick={resetQuiz}>Reset Quiz</button>
+          <button className={styles.bottomButtons} onClick={resetQuiz}>
+            Reset Quiz
+          </button>
           {selectedOption != null && (
-            <button onClick={anserCheck}>Check Answer</button>
+            <button className={styles.bottomButtons} onClick={anserCheck}>
+              Check Answer
+            </button>
           )}
           {questionIndex < quizData.length - 1 && (
-            <button onClick={nextButtonHandler} disabled={!userAnswered}>
+            <button
+              className={styles.bottomButtons}
+              onClick={nextButtonHandler}
+              disabled={!userAnswered}
+            >
               Next
             </button>
           )}
@@ -182,7 +190,9 @@ const QuizItem = () => {
       </Card>
       <ProgressBar progress={questionIndex} quizLength={quizData.length} />
       <p>
-        Progress: {questionIndex} / {quizData.length}
+        <b>
+          Progress: {questionIndex} / {quizData.length}
+        </b>
       </p>
     </>
   );
